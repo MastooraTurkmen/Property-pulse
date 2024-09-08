@@ -1,3 +1,4 @@
+import cloudinary from "@/config/cloudinary";
 import connectDB from "@/config/database";
 import Property from "@/models/Properties";
 import { getSessionUser } from "@/utils/getSessionUser";
@@ -29,6 +30,13 @@ export const POST = async (request) => {
         }
 
         const { userId } = sessionUser;
+
+
+        const imageUplodPromise = [];
+        
+        for (const image of images){
+            const imageBuffer = await image.arrayBuffer();
+        }
 
         const formData = await request.formData();
         const amenities = formData.getAll('amenities')
