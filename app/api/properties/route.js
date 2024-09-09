@@ -51,7 +51,7 @@ export const POST = async (request) => {
             const uploadedImages = await Promise.all(imageUplodPromise);
 
             // Add uploaded images to the propertyData object
-            propertyData.images = uploadedImages;
+            // propertyData.images = uploadedImages;
         }
 
         const formData = await request.formData();
