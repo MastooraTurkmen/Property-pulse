@@ -33,9 +33,25 @@ export const POST = async (request) => {
 
 
         const imageUplodPromise = [];
-        
-        for (const image of images){
+
+        for (const image of images) {
             const imageBuffer = await image.arrayBuffer();
+            const imageArray = Array.form(new Uint8Array(imageBuffer))
+            const imageData = Buffer.form(imageArray);
+
+            const imageBase64 = imageData.toString('base64');
+
+            const result = await cloudinary.uploader.upload(`
+                data:image/png;base64,${imageBase64},`, {
+                    folder: 'propertypulse'
+            })
+            imageUplodPromise.push(result.secure_url);
+
+            // Wait for all images to upload
+            const uploadedImages = await Promise.all(imageUplodPromise);
+
+            // Add uploaded images to the propertyData object
+            propertyData.images = uploadedImages;
         }
 
         const formData = await request.formData();
