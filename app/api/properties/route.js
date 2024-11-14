@@ -8,6 +8,7 @@ export const GET = async (request) => {
     try {
         await connectDB();
         const properties = await Property.find({});
+        console.log(properties)
         return new Response(JSON.stringify(properties), {
             status: 200
         });
@@ -43,7 +44,7 @@ export const POST = async (request) => {
 
             const result = await cloudinary.uploader.upload(`
                 data:image/png;base64,${imageBase64},`, {
-                    folder: 'propertypulse'
+                folder: 'propertypulse'
             })
             imageUplodPromise.push(result.secure_url);
 
