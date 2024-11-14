@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import Map, { Marker } from 'react-map-gl';
 import { setDefaults, fromAddress } from 'react-geocode';
-import Spinner from '../Spinner';
+import Spinner from './Spinner';
 import Image from 'next/image';
 import pin from '@/assets/images/pin.svg';
 
@@ -53,9 +53,12 @@ const PropertyMap = ({ property }) => {
 
         setLoading(false);
       } catch (error) {
+        error.message = "Geocoding failed: The provided API key is invalid. ";
+        error.name = 'API Key Error'
         console.log(error);
         setGeocodeError(true);
         setLoading(false);
+        throw error
       }
     };
 
