@@ -1,4 +1,4 @@
-import { Schema, model, models } from "mongoose";
+import mongoose, { Schema, model, models } from "mongoose";
 
 const PropertySchema = new Schema({
     owner: {
@@ -85,7 +85,7 @@ const PropertySchema = new Schema({
 }, {
     timestamps: true
 });
-
+// mongoose.deleteModel('Property')
 const Property = models.Property || model('Property', PropertySchema);
 
 export default Property;
